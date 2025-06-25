@@ -25,7 +25,7 @@ export const Input = forwardRef(
       >
         {leftSection}
         <input
-          className="placeholder:text-gray-shade-9c grow text-black"
+          className="placeholder:text-gray-shade-9c grow text-black outline-0"
           ref={ref}
           {...props}
         />

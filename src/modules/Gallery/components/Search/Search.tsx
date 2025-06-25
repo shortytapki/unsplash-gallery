@@ -33,10 +33,10 @@ export const Search = () => {
   return (
     <div
       className={classNames(
-        "sticky top-0 z-10 flex w-full gap-[8px] bg-white transition-all duration-500 ease-in-out",
+        "fixed z-10 flex w-full items-center gap-[8px] bg-white px-[16px] transition-all duration-500 ease-in-out lg:px-[80px]",
         submittedQuery
-          ? "mx-0 mt-0 px-0 py-[16px]"
-          : "top-[28px] mx-auto mt-[276px] max-w-[512px]",
+          ? "top-0 left-0 translate-0 py-[16px]"
+          : "top-[50%] left-[50%] max-w-[512px] -translate-1/2 py-0",
       )}
     >
       <Input
@@ -44,7 +44,12 @@ export const Search = () => {
         className={classNames("grow", submittedQuery && "max-w-[420px]")}
         leftSection={<SearchIcon />}
         rightSection={
-          <SearchDiscardIcon className="hover:cursor-pointer" onClick={reset} />
+          inputValue && (
+            <SearchDiscardIcon
+              className="hover:cursor-pointer"
+              onClick={reset}
+            />
+          )
         }
         placeholder="Телефоны, яблоки, груши..."
         value={inputValue}

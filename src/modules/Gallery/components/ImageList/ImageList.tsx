@@ -1,11 +1,13 @@
 import type { InfiniteData } from "@tanstack/react-query";
 
 import classNames from "classnames";
-import type { BaseHTMLAttributes } from "react";
+import { useAtom } from "jotai";
+import { useEffect, type BaseHTMLAttributes } from "react";
 
 import type { UnsplashImage } from "@/api";
 
 import type { InfiniteGalleryResponse } from "../../requests";
+import { submittedQueryAtom } from "../../store";
 
 interface ImageListProps extends BaseHTMLAttributes<HTMLDivElement> {
   data?: InfiniteData<InfiniteGalleryResponse>;
@@ -29,10 +31,18 @@ export const ImageList = ({
 }: ImageListProps) => {
   const noData = data?.pages.every((r) => r.results.length === 0) && !isLoading;
 
+  const [submittedQuery] = useAtom(submittedQueryAtom);
+
+  useEffect(() => {
+    if (submittedQuery) {
+      document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [submittedQuery]);
+
   return (
     <div
       className={classNames(
-        "flex flex-wrap justify-center gap-2 pb-[16px]",
+        "mt-[72px] flex flex-wrap justify-center gap-2 pb-[16px]",
         className,
       )}
       {...rest}
@@ -56,7 +66,7 @@ export const ImageList = ({
                 onClick={() => onPickImage(img)}
               >
                 <div
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 ease-in-out hover:scale-110"
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: `url(${img.urls.small})` }}
                 />
               </div>
@@ -70,7 +80,7 @@ export const ImageList = ({
             key={idx}
             className="border-gray-shade-eb relative aspect-square grow basis-[114px] cursor-pointer overflow-hidden rounded border sm:basis-[160px] md:basis-[180px] xl:basis-[204px]"
           >
-            <div className="absolute inset-0 animate-pulse bg-gray-200" />
+            <div className="absolute inset-0 bg-white" />
           </div>
         ))}
       {isError && (
