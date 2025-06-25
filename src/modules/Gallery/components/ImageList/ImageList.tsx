@@ -48,9 +48,6 @@ export const ImageList = ({
       )}
       {...rest}
     >
-      <p className="text-gray-shade-78">
-        К сожалению, поиск не дал результатов
-      </p>
       {noData ? (
         <p className="text-gray-shade-78">
           К сожалению, поиск не дал результатов
