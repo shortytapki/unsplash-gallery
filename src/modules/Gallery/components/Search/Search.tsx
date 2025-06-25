@@ -36,7 +36,7 @@ export const Search = () => {
         "ease z-10 flex w-screen bg-white px-[16px] pt-[40px] pb-[16px] transition-all duration-300 lg:px-[80px]",
         submittedQuery
           ? "sticky top-0 justify-start"
-          : "justify-center pt-[276px]",
+          : "justify-center pt-[232px] lg:pt-[276px]",
       )}
     >
       <div className={classNames("flex w-full max-w-[512px] gap-[8px]")}>
