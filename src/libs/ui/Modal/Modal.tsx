@@ -20,7 +20,7 @@ export const Modal = ({ opened, onClose, children }: ModalProps) => {
       >
         <CloseIcon />
       </div>
-      <div className="relative flex justify-center pt-0 2xl:pt-[16px]">
+      <div className="flex h-full w-full justify-center py-0 md:py-[40px]">
         {children}
       </div>
     </div>

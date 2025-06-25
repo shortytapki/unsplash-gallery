@@ -33,7 +33,7 @@ export const Search = () => {
   return (
     <header
       className={classNames(
-        "ease z-10 flex w-screen bg-white px-[16px] pt-[40px] pb-[16px] transition-all duration-300 lg:px-[80px]",
+        "ease z-10 mx-auto flex w-full max-w-[1424px] bg-white px-[16px] pt-[40px] pb-[16px] transition-all duration-300 lg:px-[80px]",
         submittedQuery
           ? "sticky top-0 justify-start"
           : "justify-center pt-[232px] lg:pt-[276px]",

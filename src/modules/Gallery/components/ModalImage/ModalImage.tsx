@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ModalImageProps {
   src?: string;
@@ -7,23 +7,30 @@ interface ModalImageProps {
 }
 
 export const ModalImage = ({ src, alt }: ModalImageProps) => {
-  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!src) return;
+    const img = new Image();
+    img.src = src;
+    img.onload = () => setLoaded(true);
+  }, [src]);
 
   return (
     <div className="relative flex w-full max-w-[760px] justify-center">
-      {loading && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white" />
-      )}
-
-      <img
-        src={src}
-        alt={alt}
+      <div
         className={classNames(
-          "h-auto w-full object-contain transition-opacity duration-300",
-          loading ? "opacity-0" : "opacity-100",
+          "relative aspect-square w-full bg-contain bg-top bg-no-repeat",
         )}
-        onLoad={() => setLoading(false)}
+        style={{
+          backgroundImage: `url(${src})`,
+        }}
+        aria-label={alt}
       />
+
+      {!loaded && (
+        <div className="absolute inset-0 aspect-square w-full bg-white" />
+      )}
     </div>
   );
 };
