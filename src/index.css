@@ -23,7 +23,6 @@ html {
 }
 
 body {
-  @apply mx-auto h-screen max-w-[1440px] overflow-y-scroll;
   scrollbar-width: 0px;
   -ms-overflow-style: none; /* IE и Edge */
   scrollbar-width: none; /* Firefox */

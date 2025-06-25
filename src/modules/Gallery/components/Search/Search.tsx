@@ -31,32 +31,34 @@ export const Search = () => {
   };
 
   return (
-    <div
+    <header
       className={classNames(
-        "fixed z-10 flex w-full items-center gap-[8px] bg-white px-[16px] transition-all duration-500 ease-in-out lg:px-[80px]",
+        "ease z-10 flex w-screen bg-white px-[16px] pt-[40px] pb-[16px] transition-all duration-300 lg:px-[80px]",
         submittedQuery
-          ? "top-0 left-0 translate-0 py-[16px]"
-          : "top-[50%] left-[50%] max-w-[512px] -translate-1/2 py-0",
+          ? "sticky top-0 justify-start"
+          : "justify-center pt-[276px]",
       )}
     >
-      <Input
-        ref={inputRef}
-        className={classNames("grow", submittedQuery && "max-w-[420px]")}
-        leftSection={<SearchIcon />}
-        rightSection={
-          inputValue && (
-            <SearchDiscardIcon
-              className="hover:cursor-pointer"
-              onClick={reset}
-            />
-          )
-        }
-        placeholder="Телефоны, яблоки, груши..."
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onKeyDown={onEnter}
-      />
-      <Button onClick={handleSearch}>Искать</Button>
-    </div>
+      <div className={classNames("flex w-full max-w-[512px] gap-[8px]")}>
+        <Input
+          ref={inputRef}
+          className={classNames("grow", submittedQuery && "max-w-[420px]")}
+          leftSection={<SearchIcon />}
+          rightSection={
+            inputValue && (
+              <SearchDiscardIcon
+                className="hover:cursor-pointer"
+                onClick={reset}
+              />
+            )
+          }
+          placeholder="Телефоны, яблоки, груши..."
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={onEnter}
+        />
+        <Button onClick={handleSearch}>Искать</Button>
+      </div>
+    </header>
   );
 };
