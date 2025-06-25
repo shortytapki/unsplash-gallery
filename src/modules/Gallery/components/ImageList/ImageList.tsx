@@ -42,11 +42,15 @@ export const ImageList = ({
   return (
     <div
       className={classNames(
-        "mx-auto flex max-w-[1424px] flex-wrap justify-center gap-2 p-[16px] pb-[16px] lg:px-[80px] lg:pt-[40px]",
+        "mx-auto flex max-w-[1424px] flex-wrap gap-2 p-[16px] pb-[16px] lg:px-[80px] lg:pt-[40px]",
+        !noData && "justify-center",
         className,
       )}
       {...rest}
     >
+      <p className="text-gray-shade-78">
+        К сожалению, поиск не дал результатов
+      </p>
       {noData ? (
         <p className="text-gray-shade-78">
           К сожалению, поиск не дал результатов
