@@ -20,6 +20,16 @@ interface ImageListProps extends BaseHTMLAttributes<HTMLDivElement> {
 
 const loadingMockArr = new Array(12).fill(0);
 
+const isImageRelevant = (img: UnsplashImage, query: string) => {
+  const q = query.toLowerCase();
+  return (
+    img.description?.toLowerCase().includes(q) ||
+    img.alt_description?.toLowerCase().includes(q) ||
+    //@ts-expect-error type missmatch
+    img?.tags?.some((tag) => tag.title?.toLowerCase().includes(q))
+  );
+};
+
 export const ImageList = ({
   className,
   isLoading,
@@ -29,9 +39,18 @@ export const ImageList = ({
   lastElementRef,
   ...rest
 }: ImageListProps) => {
-  const noData = data?.pages.every((r) => r.results.length === 0) && !isLoading;
-
   const [submittedQuery] = useAtom(submittedQueryAtom);
+
+  const isDataRelevant = data?.pages.some((p) => {
+    const relevant = p.results.some((img) =>
+      isImageRelevant(img, submittedQuery),
+    );
+    return relevant;
+  });
+
+  const noData =
+    (data?.pages.every((r) => r.results.length === 0) || !isDataRelevant) &&
+    !isLoading;
 
   useEffect(() => {
     if (submittedQuery) {
@@ -54,7 +73,7 @@ export const ImageList = ({
         </p>
       ) : (
         data?.pages.map((page, pageIndex) =>
-          page.results.map((img: any, i: number) => {
+          page.results.map((img, i) => {
             const isLast =
               pageIndex === data.pages.length - 1 &&
               i === page.results.length - 1;
