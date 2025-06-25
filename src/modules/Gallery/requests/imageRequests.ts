@@ -20,6 +20,11 @@ const fetchImages = async (
       Authorization: "Client-ID Ip0XA55zY7b7-d19osq1L5btGg-YCeDZVpnnJjXqHxs",
     },
   });
+
+  if (response.status === 429 || response.status === 403) {
+    throw new Error("Rate limit exceeded");
+  }
+
   return {
     ...response.data,
     currentPage: Number(page),
@@ -32,7 +37,12 @@ export const useGalleryQuery = (query: string) =>
     initialPageParam: 1,
     queryFn: ({ pageParam = 1 }) => fetchImages(pageParam, query),
     enabled: query.length > 0,
-    retry: false,
+    retry: (failureCount, error: any) => {
+      if (error?.message === "Rate limit exceeded") {
+        return false;
+      }
+      return failureCount < 3;
+    },
     getNextPageParam: (lastPage) =>
       lastPage.currentPage < lastPage.total_pages
         ? lastPage.currentPage + 1

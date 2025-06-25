@@ -29,12 +29,6 @@ export const ImageList = ({
 }: ImageListProps) => {
   const noData = data?.pages.every((r) => r.results.length === 0) && !isLoading;
 
-  if (isError)
-    return (
-      <p className="text-red-500">
-        Ошибка получения изображений, повторите попытку позже...
-      </p>
-    );
   return (
     <div
       className={classNames(
@@ -79,6 +73,11 @@ export const ImageList = ({
             <div className="absolute inset-0 animate-pulse bg-gray-200" />
           </div>
         ))}
+      {isError && (
+        <p className="text-red-500">
+          Ошибка получения изображений, повторите попытку позже...
+        </p>
+      )}
     </div>
   );
 };
