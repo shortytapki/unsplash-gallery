@@ -12,7 +12,7 @@ export const ModalImage = ({ src, alt }: ModalImageProps) => {
   return (
     <div className="relative flex w-full max-w-[760px] justify-center">
       {loading && (
-        <div className="absolute inset-0 z-10 flex animate-pulse items-center justify-center bg-gray-200" />
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white" />
       )}
 
       <img
