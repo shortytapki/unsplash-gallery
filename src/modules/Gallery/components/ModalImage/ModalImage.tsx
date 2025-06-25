@@ -17,10 +17,10 @@ export const ModalImage = ({ src, alt }: ModalImageProps) => {
   }, [src]);
 
   return (
-    <div className="relative flex w-full max-w-[760px] justify-center">
+    <div className="relative flex max-h-[386px] w-full max-w-[760px] justify-center md:max-h-[760px]">
       <div
         className={classNames(
-          "relative aspect-square w-full bg-contain bg-top bg-no-repeat",
+          "relative w-full bg-cover bg-center bg-no-repeat md:aspect-square",
         )}
         style={{
           backgroundImage: `url(${src})`,
